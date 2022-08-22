@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function Layout({ children, home }) {
       <header className={styles.header}>
         {home ? (
           <>
-            <Image
+            <ExportedImage
               priority
               src="/images/profile.jpg"
               className={utilStyles.borderCircle}
@@ -36,7 +36,7 @@ export default function Layout({ children, home }) {
           <>
             <Link href="/">
               <a>
-                <Image
+                <ExportedImage 
                   priority
                   src="/images/profile.jpg"
                   className={utilStyles.borderCircle}
