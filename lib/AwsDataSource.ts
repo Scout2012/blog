@@ -30,10 +30,10 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
         }
     }
 
-    async getById<T extends string>(path: string, key: string): Promise<T | undefined> {
+    async getById<T extends string>(path: string, id: string): Promise<T | undefined> {
         let params: GetObjectCommandInput = {
             Bucket: path,
-            Key: key,
+            Key: `${id}.md`,
         };
         
         try {
@@ -49,7 +49,7 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
             )
             .then((response: GetObjectCommandOutput) => response.Body?.transformToString("utf-8") as unknown as T);
         } catch (e) {
-            console.error(`Error fetching post content for ${key}: `, e);
+            console.error(`Error fetching post content for ${id}: `, e);
         }
     }
 
@@ -77,7 +77,7 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
                 return [];
             }
 
-            return postKeys.map(postKey => postKey.Key) as T[] ?? [];
+            return postKeys.map(postKey => postKey.Key?.replace(/\.md$/, "")) as T[] ?? [];
         } catch (e) {
             console.error("Error while fetching posts", e);
         }

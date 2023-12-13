@@ -13,7 +13,7 @@ export async function getStaticProps({ params }) {
     props: {
       postData,
     },
-    revalidate: 60,
+    revalidate: 10,
   };
 }
 
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 
   return {
     paths: slugs,
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 
