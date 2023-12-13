@@ -18,10 +18,10 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
     private _s3: S3Client | undefined;
     private _cache: MemoryDictionaryCacheProvider<string> | undefined;
 
-    constructor() {
+    constructor(config) {
         if (!this._s3)
         {
-            this._s3 = new S3Client({region: process.env.POSTS_REGION || 'us-east-1'});
+            this._s3 = new S3Client(config);
         }
 
         if (!this._cache)
@@ -34,9 +34,9 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
         let params: GetObjectCommandInput = {
             Bucket: path,
             Key: key,
-          };
+        };
         
-          try {
+        try {
             if (!this._s3)
             {
                 console.error("S3 provider unavailable");
@@ -45,12 +45,12 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
 
             return await this._s3
             .send(
-              new GetObjectCommand(params)
+                new GetObjectCommand(params)
             )
             .then((response: GetObjectCommandOutput) => response.Body?.transformToString("utf-8") as unknown as T);
-          } catch (e) {
+        } catch (e) {
             console.error(`Error fetching post content for ${key}: `, e);
-          }
+        }
     }
 
     async getAllIds<T>(path: string): Promise<T[] | []> {
@@ -64,13 +64,20 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
                 return [];
             }
 
-            return await this._s3
+           const postKeys = await this._s3
             .send(
                 new ListObjectsV2Command(params)
             )
             .then(
-                (response: ListObjectsV2CommandOutput) => response.KeyCount && response.KeyCount <= 0 ? [] : response.Contents as T[]
-            ) ?? [];
+                (response: ListObjectsV2CommandOutput) => response.KeyCount && response.KeyCount <= 0 ? [] : response.Contents
+            );
+
+            if(!postKeys)
+            {
+                return [];
+            }
+
+            return postKeys.map(postKey => postKey.Key) as T[] ?? [];
         } catch (e) {
             console.error("Error while fetching posts", e);
         }

@@ -29,7 +29,7 @@ export default function Home({ allPostsData }) {
       </section>
 
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <h2 className={utilStyles.headingLg}>The Dump</h2>
         <ul className={utilStyles.list}>
           {allPostsData?.map((post) => (
             <li className={utilStyles.listItem} key={post.params.id}>
@@ -38,7 +38,7 @@ export default function Home({ allPostsData }) {
               </Link>
               <br />
               <small className={utilStyles.lightText}>
-                {/* <Date dateString={post.date} /> */}
+                <Date dateString={post.date} />
               </small>
             </li>
           ))}

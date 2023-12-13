@@ -36,9 +36,22 @@ export interface BrainDumpPost extends IPost {
 }
 
 const POST_BUCKET = process.env.POSTS_BUCKET || '';
-const dataSource = process.env.ENVIRONMENT == "dev"
+const ACCESS_KEY_ID = process.env.ACCESS_KEY_ID || '';
+const ACCESS_KEY_SECRET = process.env.ACCESS_KEY_SECRET || '';
+const ENVIRONMENT = process.env.ENVIRONMENT || 'dev';
+const REGION = process.env.POSTS_REGION || 'us-east-1';
+
+const dataSource = ENVIRONMENT == "dev"
   ? new FsDataSource()
-  : new AWSDataSource();
+  : new AWSDataSource(
+    {
+      region: REGION,
+      credentials: {
+        accessKeyId: ACCESS_KEY_ID,
+        secretAccessKey: ACCESS_KEY_SECRET
+      }
+    }
+  );
 
 export async function getBrainDumpPostById(id: string): Promise<BrainDumpPost | undefined> {
   const content = await dataSource
