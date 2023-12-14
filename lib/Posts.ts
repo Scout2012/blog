@@ -1,6 +1,7 @@
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import { compareAsc, compareDesc } from "date-fns";
 import { AWSDataSource } from "./AwsDataSource";
 import { FsDataSource } from "./FsDataSource";
 
@@ -113,5 +114,5 @@ export async function fetchPreviews(): Promise<PostPreviews[]> {
     });
   }
 
-  return previews;
+  return previews.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 }

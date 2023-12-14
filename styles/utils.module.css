@@ -50,3 +50,9 @@
 .lightText {
   color: #666;
 }
+
+.flexCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

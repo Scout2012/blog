@@ -1,15 +1,38 @@
 .container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .header {
+  padding: 1em 1em;
+}
+
+.mainNav {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+}
+
+.me {
+  display: flex;
+  column-gap: 2em;
   align-items: center;
 }
 
-.backToHome {
-  margin: 3rem 0 0;
+.pages {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  column-gap: 2em;
+}
+
+.content {
+  display: flex;
+  padding-top: 5em;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.footer {
+  /* margin-top: auto; */
 }

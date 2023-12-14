@@ -25,12 +25,13 @@ export class FsDataSource implements IDataSource<MemoryDictionaryCacheRecord<str
     }
 
     async getAllIds<T>(path: string): Promise<T[] | []> {
+        let ids: T[] = [];
         try {
-            return await readdir(path).then(files => files.map(file => file.replace(/\.md$/, ""))) as T[] ?? [] ;
+            ids = await readdir(path).then(files => files.map(file => file.replace(/\.md$/, ""))) as T[] ?? [] ;
         } catch (e) {
             console.error("Error while fetching posts", e);
         }
 
-        return [];
+        return ids;
     }
 };
