@@ -22,14 +22,6 @@ export default function Layout({ children }) {
         <nav className={styles.mainNav}>
           <Link href={`/`}>
             <div className={styles.me}>
-              <ExportedImage
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt={name}
-              />
               <h1 className={utilStyles.heading2Xl}>{name.split(" ").map(x => x[0])}</h1>
             </div>
           </Link>
