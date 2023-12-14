@@ -23,6 +23,9 @@
     align-items: center;
     justify-content: center;
   }
+  .pages {
+    padding-right: 1em;
+  }
 }
 
 .me {
