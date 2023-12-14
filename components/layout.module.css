@@ -13,6 +13,21 @@
   justify-content: space-between;
 }
 
+@media only screen and (max-width: 700px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+  }
+  .mainNav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .pages {
+    padding-right: 2em;
+  }
+}
+
 .me {
   display: flex;
   column-gap: 2em;
