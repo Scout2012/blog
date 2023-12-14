@@ -24,7 +24,7 @@
     justify-content: center;
   }
   .pages {
-    padding-right: 1em;
+    text-align: center;
   }
 }
 
@@ -39,6 +39,7 @@
   align-items: center;
   list-style: none;
   column-gap: 2em;
+  padding: 0;
 }
 
 .content {
