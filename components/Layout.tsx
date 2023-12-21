@@ -5,8 +5,8 @@ import React from "react";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 
-const name = "jacob powell";
-export const siteTitle = "jacobs brain";
+const NAME = "jacob powell";
+export const SITE_TITLE = "jacobs brain";
 
 export default function Layout({ children }) {
   return (
@@ -14,15 +14,15 @@ export default function Layout({ children }) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:image" content="/favicon.ico" />
-        <meta name="og:title" content={siteTitle} />
-        <title>{siteTitle}</title>
+        <meta name="og:title" content={SITE_TITLE} />
+        <title>{SITE_TITLE}</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.css"></link>
       </Head>
       <header className={styles.header}>
         <nav className={styles.mainNav}>
           <Link href={`/`}>
             <div className={styles.me}>
-              <h1 className={utilStyles.heading2Xl}>{name.split(" ").map(x => x[0])}</h1>
+              <h1 className={utilStyles.heading2Xl}>{NAME.split(" ").map(x => x[0])}</h1>
             </div>
           </Link>
           <ol className={styles.pages}>
