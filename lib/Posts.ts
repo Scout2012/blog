@@ -54,7 +54,7 @@ export async function getPostById(id: string): Promise<Post | undefined> {
     params: { id },
     title: title,
     content: post.replace(/^[^\n]*\n/, ''),
-  }
+  };
 }
 
 export async function getAllPostSlugs(path: string = POST_BUCKET): Promise<ISluggable[]> {

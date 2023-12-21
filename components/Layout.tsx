@@ -22,23 +22,23 @@ export default function Layout({ children }) {
       </Head>
       <header className={styles.header}>
         <nav className={styles.mainNav}>
-          <Link href={`/`}>
+          <Link href={`/`} legacyBehavior>
             <div className={styles.me}>
               <h1 className={utilStyles.heading2Xl}>{NAME.split(" ").map(x => x[0])}</h1>
             </div>
           </Link>
           <ol className={styles.pages}>
             <Link href={`/library`}>
-              <a>The Library</a>
+              The Library
             </Link>
             <Link href={`/projects`}>
-              <a>Projects</a>
+              Projects
             </Link>
             <Link href={`/research`}>
-              <a>Research Center</a>
+              Research Center
             </Link>
             <Link href={`/about`}>
-              <a>About</a>
+              About
             </Link>
           </ol>
         </nav>

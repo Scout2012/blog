@@ -24,7 +24,7 @@ export default function Library({ allPostsData }) {
           {allPostsData?.map((post) => (
             <li className={utilStyles.listItem} key={post.params.id}>
               <Link href={`/library/${post.params.id}`}>
-                <a>{post.title}</a>
+                {post.title}
               </Link>
               <br />
               <small className={utilStyles.lightText}>
