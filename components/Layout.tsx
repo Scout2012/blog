@@ -5,6 +5,8 @@ import React from "react";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const NAME = "jacob powell";
 export const SITE_TITLE = "jacobs brain";
 
@@ -49,6 +51,7 @@ export default function Layout({ children }) {
         </ul>
         <p style={{display: "flex", justifyContent: "center", marginBottom: "0.5em"}}>Copyright © 2020-2024 Jacob Powell</p>
       </footer>
+      <SpeedInsights />
     </div>
   );
 }
