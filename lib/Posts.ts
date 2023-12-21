@@ -8,8 +8,10 @@ interface ISluggable {
   };
 }
 
-export interface Post extends ISluggable {
+export interface PostPreview extends ISluggable {
   title: string,
+}
+export interface Post extends PostPreview {
   content: string,
 }
 
@@ -62,14 +64,23 @@ export async function getAllPostSlugs(path: string = POST_BUCKET): Promise<ISlug
   return ids.map(id => { return { params: { id } } } );
 }
 
-export async function fetchPreviews(): Promise<ISluggable[]> {
-  let previews: ISluggable[] = [];
+export async function fetchPreviews(): Promise<PostPreview[]> {
+  let previews: PostPreview[] = [];
   const slugs = await getAllPostSlugs();
   
   for(const slug of slugs)
   {
+    const post = await getPostById(slug.params.id);
+
+    if (!post)
+    {
+      console.error("Post ID found but unable to fetch content: ", slug.params.id)
+      continue;
+    }
+
     previews.push({
       params: slug.params,
+      title: post.title,
     });
   }
 
