@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import { getAllPostSlugs, getBrainDumpPostById } from "../../lib/Posts";
-import Date from "../../components/Date";
+import { getAllPostSlugs, getPostById } from "../../lib/Posts";
 import React from "react";
 
 import utilStyles from "../../styles/utils.module.css";
@@ -9,7 +8,7 @@ import postStyles from "./post.module.css";
 
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
-  const post = await getBrainDumpPostById(params.id);
+  const post = await getPostById(params.id);
   
   // return new props
   return {
@@ -39,10 +38,7 @@ export default function Post({ post }) {
             <title>{post.title}</title>
           </Head>
           <h1 className={utilStyles.headingXl}>{post.title}</h1>
-          <div className={utilStyles.lightText}>
-            <Date dateString={post.date} />
-          </div>
-          <div className={postStyles.articleContent} dangerouslySetInnerHTML={{ __html: post.postHtml }} />
+          <div className={postStyles.articleContent} dangerouslySetInnerHTML={{ __html: post.content }} />
         </article>
     </Layout>
   );

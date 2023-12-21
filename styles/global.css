@@ -27,3 +27,13 @@ img {
   max-width: 100%;
   display: block;
 }
+
+/* Base style for any fenced code */
+code[class^="language-"] {
+  font-family: monospace;
+}
+
+pre {
+  background-color: #1F1F1F;
+  padding: 1em;
+}

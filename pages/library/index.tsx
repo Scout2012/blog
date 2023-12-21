@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import Layout from "../../components/Layout";
-import Date from "../../components/Date";
 import { fetchPreviews } from "../../lib/Posts";
 
 import utilStyles from "../../styles/utils.module.css";
@@ -29,7 +28,7 @@ export default function Library({ allPostsData }) {
               </Link>
               <br />
               <small className={utilStyles.lightText}>
-                <Date dateString={post.date} />
+                Jacob Powell
               </small>
             </li>
           ))}

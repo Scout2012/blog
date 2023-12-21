@@ -1,5 +1,4 @@
 import Head from "next/head";
-import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import React from "react";
 
@@ -17,6 +16,7 @@ export default function Layout({ children }) {
         <meta property="og:image" content="/favicon.ico" />
         <meta name="og:title" content={siteTitle} />
         <title>{siteTitle}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.css"></link>
       </Head>
       <header className={styles.header}>
         <nav className={styles.mainNav}>

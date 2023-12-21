@@ -1,14 +1,12 @@
-import Link from "next/link";
 import React from "react";
 import Layout from "../../components/Layout";
-import Date from "../../components/Date";
-import { fetchPreviews } from "../../lib/Posts";
+import { getAllNotes } from "../../lib/Note";
 
 import utilStyles from "../../styles/utils.module.css";
 
 export async function getStaticProps() {
   // fetch extra props
-
+  const notes = await getAllNotes();
   // return extra props
   return {
     props: {
@@ -17,6 +15,10 @@ export async function getStaticProps() {
   };
 }
 
+// Get all notes
+// Scan their tags
+// Clump all related tags together
+// Make interconnecting links
 export default function Research({ subjects }) {
   return (
     <Layout>
