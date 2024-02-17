@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 export default function Blog({ post }) {
   return (
     <Layout>
-      <article className={blogStyles.article}>
+      <article>
         <Head>
           <title>{post.title}</title>
         </Head>
