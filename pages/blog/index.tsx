@@ -21,7 +21,7 @@ export default function Library({ allPostsData }) {
       <section
         className={`${utilStyles.headingMd} ${utilStyles.padding1px} ${utilStyles.flexCenter}`}
       >
-        <h2 className={utilStyles.headingLg}>The Library's Latest Entries</h2>
+        <h2 className={utilStyles.headingLg}>Blog Posts</h2>
         <ul className={utilStyles.list}>
           {allPostsData?.map((post) => (
             <li className={utilStyles.listItem} key={post.params.id}>
