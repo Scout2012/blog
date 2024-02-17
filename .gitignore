@@ -4,3 +4,4 @@ out
 public/images/next*
 posts/
 .env
+.identifier
