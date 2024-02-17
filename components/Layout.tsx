@@ -65,6 +65,7 @@ export default function Layout({ children }) {
                   className={`${
                     router.pathname === route.path ? styles.active : null
                   }`}
+                  key={`li-${route.title.toLowerCase()}`}
                 >
                   <Link
                     href={route.path}
