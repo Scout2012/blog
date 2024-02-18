@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "./node_modules/next/dist/bin/next dev",
+    "build": "./node_modules/next/dist/bin/next build",
+    "start": "./node_modules/next/dist/bin/next start"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.465.0",
