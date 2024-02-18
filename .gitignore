@@ -3,5 +3,5 @@ node_modules
 out
 public/images/next*
 posts/
-.env
+.env*
 .identifier
