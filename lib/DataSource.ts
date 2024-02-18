@@ -1,4 +1,9 @@
+export interface IBlogPost {
+    body: string;
+    last_modified: Date;
+}
+
 export interface IDataSource<R, V extends string> {
-    getById<T extends string>(path: string, key: string): Promise<T | undefined>;
-    getAllIds<T extends string>(path: string, key: string): Promise<T[]>;
+    getById<T extends IBlogPost>(path: string, key: string): Promise<T | null>;
+    getAllIds<T extends IBlogPost>(path: string, key: string): Promise<T[]>;
 }

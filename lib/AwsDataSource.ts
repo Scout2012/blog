@@ -8,7 +8,7 @@ import {
     GetObjectCommandOutput,
     _Object
 } from "@aws-sdk/client-s3";
-import { IDataSource } from "./DataSource";
+import { IDataSource, IBlogPost } from "./DataSource";
 import {
     MemoryDictionaryCacheProvider,
     MemoryDictionaryCacheRecord
@@ -30,26 +30,37 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
         }
     }
 
-    async getById<T extends string>(path: string, id: string): Promise<T | undefined> {
+    async getById<T extends IBlogPost>(path: string, id: string): Promise<T | null> {
         let params: GetObjectCommandInput = {
             Bucket: path,
             Key: `${id}.md`,
         };
-        
+
         try {
             if (!this._s3)
             {
                 console.error("S3 provider unavailable");
-                return;
+                return null;
             }
 
-            return await this._s3
+            const { Body, LastModified } = await this._s3
             .send(
                 new GetObjectCommand(params)
-            )
-            .then((response: GetObjectCommandOutput) => response.Body?.transformToString("utf-8") as unknown as T);
+            );
+            const postContent = await Body?.transformToString("utf-8");
+
+            if(!postContent)
+            {
+                return null;
+            }
+
+            return {
+                body: postContent,
+                last_modified: LastModified,
+            } as T;
         } catch (e) {
             console.error(`Error fetching post content for ${id}: `, e);
+            return null;
         }
     }
 

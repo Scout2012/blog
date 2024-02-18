@@ -1,6 +1,6 @@
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { IDataSource } from "./DataSource";
+import { IDataSource, IBlogPost } from "./DataSource";
 import {
     MemoryDictionaryCacheProvider,
     MemoryDictionaryCacheRecord
@@ -16,11 +16,19 @@ export class FsDataSource implements IDataSource<MemoryDictionaryCacheRecord<str
         }
     }
 
-    async getById<T extends string>(path: string, id: string): Promise<T | undefined> {
+    async getById<T extends IBlogPost>(path: string, id: string): Promise<T | null> {
           try {
-            return await readFile(join(path, `${id}.md`)).then(fileBuff => fileBuff.toString("utf-8") as T);
+            const fullPath = join(path, `${id}.md`);
+            const content = await readFile(fullPath).then(fileBuff => fileBuff.toString("utf-8"));
+            const stats = await stat(fullPath);
+
+            return {
+                body: content,
+                last_modified: stats.mtime,
+            } as T;
           } catch (e) {
             console.error(`Error fetching post content for ${id}: `, e);
+            return null;
           }
     }
 

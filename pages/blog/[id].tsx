@@ -1,10 +1,18 @@
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import { getAllPostSlugs, getPostById } from "../../lib/Posts";
+import { Post, getAllPostSlugs, getPostById } from "../../lib/Posts";
 import React from "react";
 
 import utilStyles from "../../styles/utils.module.css";
 import blogStyles from "./blog.module.css";
+
+type StaticPropPostPreview = Omit<Post, "last_modified"> & {
+  last_modified: string;
+};
+
+interface BlogPostProps {
+  post: StaticPropPostPreview;
+}
 
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
@@ -13,7 +21,10 @@ export async function getStaticProps({ params }) {
   // return new props
   return {
     props: {
-      post,
+      post: {
+        ...post,
+        last_modified: post?.last_modified.toLocaleDateString("en-US"),
+      },
     },
     revalidate: 10,
   };
@@ -30,7 +41,7 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Blog({ post }) {
+export default function Blog({ post }: BlogPostProps) {
   return (
     <Layout>
       <article>
@@ -38,6 +49,7 @@ export default function Blog({ post }) {
           <title>{post.title}</title>
         </Head>
         <h1 className={utilStyles.headingXl}>{post.title}</h1>
+        <small className={utilStyles.lightText}>{post.last_modified}</small>
         <div
           className={blogStyles.articleContent}
           dangerouslySetInnerHTML={{ __html: post.content }}

@@ -1,4 +1,5 @@
 import { AWSDataSource } from "./AwsDataSource";
+import { IBlogPost } from "./DataSource";
 import { FsDataSource } from "./FsDataSource";
 import { MarkdownProcessor } from "./MarkdownProcessor";
 
@@ -10,6 +11,7 @@ interface ISluggable {
 
 export interface PostPreview extends ISluggable {
   title: string,
+  last_modified: Date,
 }
 export interface Post extends PostPreview {
   content: string,
@@ -35,14 +37,14 @@ const dataSource = ENVIRONMENT == "dev"
 
 export async function getPostById(id: string): Promise<Post | undefined> {
   const content = await dataSource
-    .getById<string>(POST_BUCKET, id);
+    .getById<IBlogPost>(POST_BUCKET, id);
   
   if (!content)
   {
     return undefined;
   }
   
-  const post = MarkdownProcessor.process(content);
+  const post = MarkdownProcessor.process(content.body);
 
   const titleRegex = /<p><strong>(.*?)<\/strong><\/p>/;
   const titleMatch = post
@@ -54,6 +56,7 @@ export async function getPostById(id: string): Promise<Post | undefined> {
     params: { id },
     title: title,
     content: post.replace(/^[^\n]*\n/, ''),
+    last_modified: content.last_modified,
   };
 }
 
@@ -81,8 +84,9 @@ export async function fetchPreviews(): Promise<PostPreview[]> {
     previews.push({
       params: slug.params,
       title: post.title,
+      last_modified: post.last_modified,
     });
   }
 
-  return previews;
+  return previews.sort((a,b)=>b.last_modified.getTime()-a.last_modified.getTime());
 }

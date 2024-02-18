@@ -15,6 +15,6 @@ export const MarkdownProcessor = {
         }
     }),
     process(content: string): string {
-        return this._processor.render(content);
+      return this._processor.render(content);
     },
 }
