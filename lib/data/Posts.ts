@@ -1,7 +1,6 @@
-import { AWSDataSource } from "./AwsDataSource";
-import { IBlogPost } from "./DataSource";
-import { FsDataSource } from "./FsDataSource";
-import { MarkdownProcessor } from "./MarkdownProcessor";
+import { AWSDataSource, FsDataSource } from "../provider";
+import { IBlogPost } from "../DataSource";
+import { MarkdownProcessor } from "../processing/MarkdownProcessor";
 
 interface ISluggable {
   params: {

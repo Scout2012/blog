@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 
 import utilStyles from "../../styles/utils.module.css";
 import Link from "next/link";
-import { PostPreview, fetchPreviews } from "../../lib/Posts";
+import { PostPreview, fetchPreviews } from "../../lib/data/Posts";
 
 type StaticPropPostPreview = Omit<PostPreview, "last_modified"> & {
   last_modified: string;

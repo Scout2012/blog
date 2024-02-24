@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./layout.module.css";
 import NavBar from "./NavBar";
 
-export const SITE_TITLE = "Jacob Powell";
+export const NAME = "Jacob Powell";
 
 export default function Layout({ children }) {
   return (
@@ -12,8 +12,8 @@ export default function Layout({ children }) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:image" content="/favicon.ico" />
-        <meta name="og:title" content={SITE_TITLE} />
-        <title>{SITE_TITLE}</title>
+        <meta name="og:title" content={NAME} />
+        <title>{NAME}</title>
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.css"
@@ -24,7 +24,7 @@ export default function Layout({ children }) {
       </header>
       <main>{children}</main>
       <footer>
-        <p>Made by Jacob Powell</p>
+        <p>Made by {NAME}</p>
       </footer>
     </div>
   );

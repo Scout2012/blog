@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "../../components/Layout";
-import { Post, getAllPostSlugs, getPostById } from "../../lib/Posts";
+import { Post, getAllPostSlugs, getPostById } from "../../lib/data/Posts";
 import React from "react";
 
 import utilStyles from "../../styles/utils.module.css";

@@ -1,10 +1,10 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { IDataSource, IBlogPost } from "./DataSource";
+import { IDataSource, IBlogPost } from "../DataSource";
 import {
     MemoryDictionaryCacheProvider,
     MemoryDictionaryCacheRecord
-} from "./MemoryCache";
+} from "../cache/MemoryCache";
 
 export class FsDataSource implements IDataSource<MemoryDictionaryCacheRecord<string>, string> {
     private _cache: MemoryDictionaryCacheProvider<string> | undefined;

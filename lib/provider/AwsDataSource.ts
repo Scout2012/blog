@@ -5,14 +5,13 @@ import {
     S3Client,
     GetObjectCommand,
     GetObjectCommandInput,
-    GetObjectCommandOutput,
     _Object
 } from "@aws-sdk/client-s3";
-import { IDataSource, IBlogPost } from "./DataSource";
+import { IDataSource, IBlogPost } from "../DataSource";
 import {
     MemoryDictionaryCacheProvider,
     MemoryDictionaryCacheRecord
-} from "./MemoryCache";
+} from "../cache/MemoryCache";
 
 export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<string>, string> {
     private _s3: S3Client | undefined;
