@@ -5,10 +5,9 @@ export default function Custom404() {
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
-    // Your condition that can validate the URL
     const pathNameArray = window.location.pathname.split("/");
     if (pathNameArray.length <= 2) {
-      Router.replace(window.location.pathname); // Redirect to the right page...
+      Router.replace(window.location.pathname);
     } else {
       setIsNotFound(true);
     }

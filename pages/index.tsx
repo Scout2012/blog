@@ -18,13 +18,11 @@ export default function Home() {
           width={267}
           quality={100}
         />
-        {/* background */}
         <p>
           Welcome to my website! I'm currently working at Taco Bell as a
           Software Engineer. I primarily find myself working on backend systems,
           but am versed and experienced with frontend systems as well.
         </p>
-        {/* what im doing lately */}
         <p>
           I love learning, and am always studying up on the latest within the
           tech and math world. Some specific topics that I find myself always
@@ -33,7 +31,7 @@ export default function Home() {
         </p>
         <p>
           Check out my blog to read up on my latest interests, and check out my
-          GitHub to check out my latest code!
+          GitHub to see my latest code!
         </p>
       </article>
     </Layout>
