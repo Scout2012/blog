@@ -2,7 +2,7 @@
 
 This is the code running https://jacobpowell.dev
 
-Before you run the blog, move the `.example` from the sample .env files and prepare them as relevant to you.
+Before you run the blog, remove the `.example` from the sample .env files and prepare them as relevant to you.
 
 To run the blog:
 

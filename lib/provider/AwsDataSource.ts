@@ -7,25 +7,15 @@ import {
     GetObjectCommandInput,
     _Object
 } from "@aws-sdk/client-s3";
-import { IDataSource, IBlogPost } from "../DataSource";
-import {
-    MemoryDictionaryCacheProvider,
-    MemoryDictionaryCacheRecord
-} from "../cache/MemoryCache";
+import { DataSource, IBlogPost } from "../DataSource";
 
-export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<string>, string> {
+export class AWSDataSource implements DataSource {
     private _s3: S3Client | undefined;
-    private _cache: MemoryDictionaryCacheProvider<string> | undefined;
 
     constructor(config) {
         if (!this._s3)
         {
             this._s3 = new S3Client(config);
-        }
-
-        if (!this._cache)
-        {
-            this._cache = new MemoryDictionaryCacheProvider();
         }
     }
 
@@ -63,7 +53,7 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
         }
     }
 
-    async getAllIds<T>(path: string): Promise<T[] | []> {
+    async getAllIds<T>(path: string): Promise<Array<T>> {
         let params: ListObjectsV2CommandInput = {
             Bucket: path,
         };
@@ -87,7 +77,7 @@ export class AWSDataSource implements IDataSource<MemoryDictionaryCacheRecord<st
                 return [];
             }
 
-            return postKeys.map(postKey => postKey.Key?.replace(/\.md$/, "")) as T[] ?? [];
+            return postKeys.map(postKey => postKey.Key?.replace(/\.md$/, "")) as Array<T> ?? [];
         } catch (e) {
             console.error("Error while fetching posts", e);
         }

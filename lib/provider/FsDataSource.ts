@@ -1,20 +1,8 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { IDataSource, IBlogPost } from "../DataSource";
-import {
-    MemoryDictionaryCacheProvider,
-    MemoryDictionaryCacheRecord
-} from "../cache/MemoryCache";
+import { DataSource, IBlogPost } from "../DataSource";
 
-export class FsDataSource implements IDataSource<MemoryDictionaryCacheRecord<string>, string> {
-    private _cache: MemoryDictionaryCacheProvider<string> | undefined;
-
-    constructor() {
-        if (!this._cache)
-        {
-            this._cache = new MemoryDictionaryCacheProvider();
-        }
-    }
+export class FsDataSource implements DataSource {
 
     async getById<T extends IBlogPost>(path: string, id: string): Promise<T | null> {
           try {
@@ -32,10 +20,10 @@ export class FsDataSource implements IDataSource<MemoryDictionaryCacheRecord<str
           }
     }
 
-    async getAllIds<T>(path: string): Promise<T[] | []> {
-        let ids: T[] = [];
+    async getAllIds<T>(path: string): Promise<Array<T>> {
+        let ids: Array<T> = [];
         try {
-            ids = await readdir(path).then(files => files.map(file => file.replace(/\.md$/, ""))) as T[] ?? [] ;
+            ids = await readdir(path).then(files => files.map(file => file.replace(/\.md$/, ""))) as Array<T> ?? [] ;
         } catch (e) {
             console.error("Error while fetching posts", e);
         }

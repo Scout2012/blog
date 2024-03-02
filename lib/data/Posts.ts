@@ -2,13 +2,12 @@ import { AWSDataSource, FsDataSource } from "../provider";
 import { IBlogPost } from "../DataSource";
 import { MarkdownProcessor } from "../processing/MarkdownProcessor";
 
-interface ISluggable {
+interface Sluggable {
   params: {
     id: string;
   };
 }
-
-export interface PostPreview extends ISluggable {
+export interface PostPreview extends Sluggable {
   title: string,
   last_modified: Date,
 }
@@ -59,14 +58,14 @@ export async function getPostById(id: string): Promise<Post | undefined> {
   };
 }
 
-export async function getAllPostSlugs(path: string = POST_BUCKET): Promise<ISluggable[]> {
+export async function getAllPostSlugs(path: string = POST_BUCKET): Promise<Array<Sluggable>> {
   const ids = await dataSource
   .getAllIds<string>(path);
 
   return ids.map(id => { return { params: { id } } } );
 }
 
-export async function fetchPreviews(): Promise<PostPreview[]> {
+export async function fetchPreviews(): Promise<Array<PostPreview>> {
   let previews: PostPreview[] = [];
   const slugs = await getAllPostSlugs();
   
