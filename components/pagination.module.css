@@ -1,0 +1,9 @@
+.pagination {
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination span {
+    padding: 0 0.5em 0 0.5em
+}
