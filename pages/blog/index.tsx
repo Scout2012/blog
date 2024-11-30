@@ -41,7 +41,6 @@ export default function Library({ allPostsData }: BlogProps) {
   const amountofPages = Math.ceil(allPostsData.length / POSTS_PER_PAGE);
   const currentSlice =
     page > amountofPages ? amountofPages : POSTS_PER_PAGE * (page - 1);
-  console.log(page, DEFAULT_PAGE);
 
   return (
     <Layout>
