@@ -12,7 +12,7 @@ export default function Layout({ children }) {
       </header>
       <main>{children}</main>
       <footer>
-        <p>Made by {NAME}</p>
+        <p>fueled with love by {NAME}</p>
       </footer>
     </div>
   );

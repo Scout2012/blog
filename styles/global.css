@@ -9,6 +9,10 @@ body {
   background-color: #F8F8F3;
 }
 
+nav {
+  background-color: #E8E8D8;
+}
+
 footer {
   display: flex;
   justify-content: center;

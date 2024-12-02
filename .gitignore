@@ -1,8 +1,9 @@
-node_modules
-.next
-out
+.next/
+.local/
+node_modules/
 public/images/next*
-posts/
+out/
+
 .env*
 !.env.*.example
 .identifier

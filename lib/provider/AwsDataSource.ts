@@ -7,7 +7,8 @@ import {
     GetObjectCommandInput,
     _Object
 } from "@aws-sdk/client-s3";
-import { DataSource, IBlogPost } from "../DataSource";
+import { DataSource } from "../DataSource";
+import { DATA_LOCATION } from "../Global";
 
 export class AWSDataSource implements DataSource {
     private _s3: S3Client | undefined;
@@ -19,10 +20,10 @@ export class AWSDataSource implements DataSource {
         }
     }
 
-    async getById<T extends IBlogPost>(path: string, id: string): Promise<T | null> {
+    async getById<T>(id: string): Promise<T | null> {
         let params: GetObjectCommandInput = {
-            Bucket: path,
-            Key: `${id}.md`,
+            Bucket: DATA_LOCATION,
+            Key: id,
         };
 
         try {
@@ -48,15 +49,17 @@ export class AWSDataSource implements DataSource {
                 last_modified: LastModified,
             } as T;
         } catch (e) {
-            console.error(`Error fetching post content for ${id}: `, e);
+            console.error(`Error fetching content for ${id}: `, e);
             return null;
         }
     }
 
-    async getAllIds<T>(path: string): Promise<Array<T>> {
+    async getAllIds<T>(prefix: string): Promise<Array<T>> {
         let params: ListObjectsV2CommandInput = {
-            Bucket: path,
+            Prefix: prefix,
+            Bucket: DATA_LOCATION,
         };
+
         try {
             if (!this._s3)
             {
@@ -69,7 +72,14 @@ export class AWSDataSource implements DataSource {
                 new ListObjectsV2Command(params)
             )
             .then(
-                (response: ListObjectsV2CommandOutput) => response.KeyCount && response.KeyCount <= 0 ? [] : response.Contents
+                (response: ListObjectsV2CommandOutput) => {
+                    if (response.KeyCount && response.KeyCount <= 0)
+                    {
+                        return [];
+                    }
+
+                    return response.Contents
+                }
             );
 
             if(!postKeys)
@@ -77,7 +87,7 @@ export class AWSDataSource implements DataSource {
                 return [];
             }
 
-            return postKeys.map(postKey => postKey.Key?.replace(/\.md$/, "")) as Array<T> ?? [];
+            return postKeys.filter(post => !post.Key?.endsWith("/")).map(post => post.Key?.replace(/\.md$/, "")) as Array<T> ?? [];
         } catch (e) {
             console.error("Error while fetching posts", e);
         }
