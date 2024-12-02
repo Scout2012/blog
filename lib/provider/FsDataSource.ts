@@ -1,12 +1,12 @@
 import { readFile, readdir, stat } from "node:fs/promises";
-import { join } from "node:path";
-import { DataSource, IBlogPost } from "../DataSource";
+import { DataSource } from "../DataSource";
+import { BLOG_POSTS_LOCATION, DATA_LOCATION } from "../Global";
 
 export class FsDataSource implements DataSource {
+    async getById<T>(id: string): Promise<T | null> {
+        let fullPath = `${DATA_LOCATION}/${id}`;
 
-    async getById<T extends IBlogPost>(path: string, id: string): Promise<T | null> {
-          try {
-            const fullPath = join(path, `${id}.md`);
+        try {
             const content = await readFile(fullPath).then(fileBuff => fileBuff.toString("utf-8"));
             const stats = await stat(fullPath);
 
@@ -15,17 +15,17 @@ export class FsDataSource implements DataSource {
                 last_modified: stats.mtime,
             } as T;
           } catch (e) {
-            console.error(`Error fetching post content for ${id}: `, e);
+            console.error(`Error fetching content for ${fullPath}: `, e);
             return null;
           }
     }
 
-    async getAllIds<T>(path: string): Promise<Array<T>> {
+    async getAllIds<T>(prefix: string): Promise<Array<T>> {
         let ids: Array<T> = [];
         try {
-            ids = await readdir(path).then(files => files.map(file => file.replace(/\.md$/, ""))) as Array<T> ?? [] ;
+            ids = await readdir(`${DATA_LOCATION}/${prefix}`).then(files => files.map(file => `${BLOG_POSTS_LOCATION}/${file.replace(/\.md$/, "")}`)) as Array<T> ?? [] ;
         } catch (e) {
-            console.error("Error while fetching posts", e);
+            console.error("Error while fetching content", e);
         }
 
         return ids;

@@ -3,11 +3,11 @@
 }
 
 .routes a {
-  padding: 1em;
+  padding: 1em 1em 1.3em 1em;
 }
 
 .routes a:hover, .active a{
-  background-color: #E8E8D8;
+  background-color: #D3D3C3;
 }
 
 .socials {
@@ -16,12 +16,13 @@
 }
 
 @media only screen and (max-width: 700px) {
-  .socials {
+  .socials li {
     background-color: #E8E8D8;
-    justify-content: center;
+    justify-content: right;
     padding-right: 0em;
   }
 
+  .routes
   .socials li {
     margin: 0 2em;
   }

@@ -4,7 +4,7 @@ import Pagination from "../../components/Pagination";
 
 import utilStyles from "../../styles/utils.module.css";
 import Link from "next/link";
-import { PostPreview, fetchPreviews } from "../../lib/data/Posts";
+import { PostPreview, getPreviews } from "../../lib/data/Posts";
 import { useSearchParams } from "next/navigation";
 import { DEFAULT_PAGE, POSTS_PER_PAGE } from "../../lib/Global";
 
@@ -17,7 +17,7 @@ interface BlogProps {
 }
 
 export async function getStaticProps() {
-  const allPostsData = await fetchPreviews();
+  const allPostsData = await getPreviews();
   const enrichedPostData = allPostsData.map((preview) => {
     return {
       ...preview,
