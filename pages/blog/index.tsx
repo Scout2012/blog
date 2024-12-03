@@ -8,8 +8,8 @@ import { PostPreview, getPreviews } from "../../lib/data/Posts";
 import { useSearchParams } from "next/navigation";
 import { DEFAULT_PAGE, POSTS_PER_PAGE } from "../../lib/Global";
 
-type StaticPropPostPreview = Omit<PostPreview, "last_modified"> & {
-  last_modified: string;
+type StaticPropPostPreview = Omit<PostPreview, "modified"> & {
+  modified: string;
 };
 
 interface BlogProps {
@@ -17,13 +17,8 @@ interface BlogProps {
 }
 
 export async function getStaticProps() {
-  const allPostsData = await getPreviews();
-  const enrichedPostData = allPostsData.map((preview) => {
-    return {
-      ...preview,
-      last_modified: preview.last_modified.toLocaleDateString("en-US"),
-    };
-  });
+  const allPostsData = JSON.parse(JSON.stringify(await getPreviews()));
+  const enrichedPostData = allPostsData;
 
   return {
     props: {
@@ -56,7 +51,7 @@ export default function Library({ allPostsData }: BlogProps) {
                 <Link href={`/blog/${post.params.id}`}>{post.title}</Link>
                 <br />
                 <small className={utilStyles.lightText}>
-                  Jacob Powell, {post.last_modified}
+                  {new Date(post.modified).toLocaleDateString('en-US')}
                 </small>
               </li>
             ))}

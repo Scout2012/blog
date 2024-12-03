@@ -1,4 +1,4 @@
-import { readFile, readdir, stat } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { DataSource } from "../DataSource";
 import { BLOG_POSTS_LOCATION, DATA_LOCATION } from "../Global";
 
@@ -7,17 +7,13 @@ export class FsDataSource implements DataSource {
         let fullPath = `${DATA_LOCATION}/${id}`;
 
         try {
-            const content = await readFile(fullPath).then(fileBuff => fileBuff.toString("utf-8"));
-            const stats = await stat(fullPath);
-
             return {
-                body: content,
-                last_modified: stats.mtime,
+                body: await readFile(fullPath).then(fileBuff => fileBuff.toString("utf-8"))
             } as T;
-          } catch (e) {
+        } catch (e) {
             console.error(`Error fetching content for ${fullPath}: `, e);
             return null;
-          }
+        }
     }
 
     async getAllIds<T>(prefix: string): Promise<Array<T>> {
