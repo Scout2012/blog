@@ -4,16 +4,12 @@ import Pagination from "../../components/Pagination";
 
 import utilStyles from "../../styles/utils.module.css";
 import Link from "next/link";
-import { PostPreview, getPreviews } from "../../lib/data/Posts";
+import { Post, getPreviews } from "../../lib/data/Posts";
 import { useSearchParams } from "next/navigation";
 import { DEFAULT_PAGE, POSTS_PER_PAGE } from "../../lib/Global";
 
-type StaticPropPostPreview = Omit<PostPreview, "modified"> & {
-  modified: string;
-};
-
 interface BlogProps {
-  allPostsData: StaticPropPostPreview[];
+  allPostsData: Post[];
 }
 
 export async function getStaticProps() {
@@ -51,7 +47,7 @@ export default function Library({ allPostsData }: BlogProps) {
                 <Link href={`/blog/${post.params.id}`}>{post.title}</Link>
                 <br />
                 <small className={utilStyles.lightText}>
-                  {new Date(post.modified).toLocaleDateString('en-US')}
+                  {post.modified}
                 </small>
               </li>
             ))}
