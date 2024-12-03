@@ -6,12 +6,8 @@ import React from "react";
 import utilStyles from "../../styles/utils.module.css";
 import blogStyles from "./blog.module.css";
 
-type StaticPropPostPreview = Omit<Post, "modified"> & {
-  modified: string;
-};
-
 interface BlogPostProps {
-  post: StaticPropPostPreview;
+  post: Post;
 }
 
 export async function getStaticProps({ params }) {
@@ -46,7 +42,7 @@ export default function Blog({ post }: BlogPostProps) {
           <title>{post.title}</title>
         </Head>
         <h1 className={utilStyles.headingXl}>{post.title}</h1>
-        <small className={utilStyles.lightText}>{new Date(post.modified).toLocaleDateString("en-US")}</small>
+        <small className={utilStyles.lightText}>{post.modified}</small>
         <div
           className={blogStyles.articleContent}
           dangerouslySetInnerHTML={{ __html: post.content }}

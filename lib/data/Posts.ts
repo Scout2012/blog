@@ -13,12 +13,12 @@ interface Slug {
 
 export interface IPost {
   body: string;
-  modified: Date;
+  modified: string;
 }
 
 export interface PostPreview extends Slug {
   title: string,
-  modified: Date,
+  modified: string,
 }
 export interface Post extends PostPreview {
   content: string,
@@ -70,5 +70,5 @@ export async function getPreviews(): Promise<Array<PostPreview>> {
     previews.push(post);
   }
 
-  return previews.sort((a,b)=>b.modified.getTime()-a.modified.getTime());
+  return previews.sort((a,b)=>new Date(b.modified).getTime()-new Date(a.modified).getTime());
 }
