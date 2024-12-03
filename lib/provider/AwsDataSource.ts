@@ -33,7 +33,7 @@ export class AWSDataSource implements DataSource {
                 return null;
             }
 
-            const { Body, LastModified } = await this._s3
+            const { Body } = await this._s3
             .send(
                 new GetObjectCommand(params)
             );
@@ -45,8 +45,7 @@ export class AWSDataSource implements DataSource {
             }
 
             return {
-                body: postContent,
-                last_modified: LastModified,
+                body: postContent
             } as T;
         } catch (e) {
             console.error(`Error fetching content for ${id}: `, e);
