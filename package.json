@@ -1,28 +1,18 @@
 {
   "name": "blog",
-  "version": "0.0.1",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/next/dist/bin/next dev --turbopack",
-    "build": "./node_modules/next/dist/bin/next build",
-    "start": "./node_modules/next/dist/bin/next start"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.465.0",
-    "@vercel/speed-insights": "^1.0.2",
-    "eslint-config-next": "^14.0.4",
-    "gray-matter": "^4.0.3",
-    "highlight.js": "^11.9.0",
-    "markdown-it": "^14.0.0",
-    "next": "^15.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sharp": "^0.33.5"
+    "@11ty/eleventy": "^3.1.5"
   },
   "devDependencies": {
-    "@types/node": "20.11.19",
-    "@types/react": "18.2.55",
-    "@types/react-dom": "^18.2.17",
-    "typescript": "5.3.3"
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2"
   }
 }

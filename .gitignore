@@ -1,9 +1,2 @@
-.next/
-.local/
-node_modules/
-public/images/next*
-out/
-
-.env*
-!.env.*.example
-.identifier
+_site
+node_modules

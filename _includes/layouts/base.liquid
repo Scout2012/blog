@@ -1,0 +1,25 @@
+---
+title: My Rad Blog
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/assets/css/theme/base.css" rel="stylesheet" />
+    <link href="/assets/css/theme/code.css" rel="stylesheet" />
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {{ content }}
+
+    <ul>
+        {%- for post in collections.post -%}
+        <li>{{ post.data.title }}</li>
+        {%- endfor -%}
+    </ul>
+
+    <script src="https:///unpkg.com/prismjs@v1.30.0/components/prism-core.min.js"></script>
+    <script src="https:///unpkg.com/prismjs@v1.30.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>
